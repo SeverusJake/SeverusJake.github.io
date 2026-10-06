@@ -43,10 +43,10 @@ Unit boundaries:
 
 ```js
 const CONTENT = {
-  profile: { name, shortName, role, tagline, about: [paragraphs], email, resumeUrl },
-  links:   [{ label, url, icon }],                 // github, linkedin, email
+  profile: { name, shortName, role, tagline, about: [paragraphs], contactText, email, resumeUrl },
+  links:   [{ label, url, icon }],                 // github, linkedin, email, itch
   projects:[{ title, category: "unity"|"web", blurb, tags: [], image?, links: { live?, repo?, play? } }],
-  skills:  [{ group, items: [] }],                 // Game Dev, Web, IT & Systems
+  skills:  [{ group, icon, items: [] }],           // Game Dev, Web, IT & Systems; icon: game|web|server
   experience: [{ role, org, period, points: [] }]  // newest first
 };
 ```
@@ -69,7 +69,8 @@ role "Unity & Web Developer".
 - Fonts: Space Grotesk (headings), Inter (body) via Google Fonts; system fallback.
 - Glass cards: translucent bg, `backdrop-filter: blur(14px)`, 1px border, hover lift
   + glow. Fallback solid `--bg-elev` when `backdrop-filter` unsupported.
-- Blobs: 3 absolutely positioned blurred circles behind hero, slow drift keyframes.
+- Blobs: 3 blurred circles in a fixed full-viewport layer behind all content (so
+  every glass card has color to blur), slow drift keyframes.
 - Scroll reveal: elements with `.reveal` fade up via IntersectionObserver.
 - `prefers-reduced-motion: reduce` disables blob drift, reveals, hover transforms.
 - Layout mobile-first; 16px side gutter; no horizontal scroll at 375px.

@@ -32,34 +32,86 @@ window.CONTENT = {
     { label: "LinkedIn", url: "https://www.linkedin.com/", icon: "linkedin" }, // PLACEHOLDER
   ],
 
-  // category: "unity" | "web"
-  // image: optional path like "assets/img/my-game.png" (16:9 works best)
-  // links: any of live / repo / play — missing ones are hidden
+  // category: "xr" | "game" | "web"  — filter chips only appear for categories in use
+  // platform: short label shown above the title (falls back to the category name)
+  // image: optional path like "assets/img/my-game.png" (16:9 works best).
+  //        If omitted and links.video is a YouTube URL, its thumbnail is used.
+  // links: any of demo / android / ios / video / live / repo — missing ones are hidden
   projects: [
-    // PLACEHOLDER projects — replace all four.
     {
-      title: "Nebula Drift",
-      category: "unity",
+      title: "Akooland",
+      category: "xr",
+      platform: "AR · iOS & Android",
       blurb:
-        "Arcade space shooter with procedural asteroid fields, controller support, and a custom wave director.",
-      tags: ["Unity", "C#", "URP", "Shader Graph"],
-      links: { play: "https://github.com/SeverusJake", repo: "https://github.com/SeverusJake" },
+        "AR coloring card game for kids: color a printed card, scan it, and watch the drawing come to life in 3D. Published on Google Play and the App Store.",
+      tags: ["AR", "Image recognition", "Particle effects", "Firebase Storage", "Firebase API"],
+      links: {
+        android: "https://play.google.com/store/apps/details?id=com.thienlong.arcolor&hl=en&gl=US",
+        ios: "https://apps.apple.com/ca/app/akooland/id6450509106",
+      },
     },
     {
-      title: "Pocket Dungeon",
-      category: "unity",
+      title: "PCCC Fire Safety",
+      category: "xr",
+      platform: "VR · Meta Quest 2 & 3",
       blurb:
-        "2D roguelike for mobile: tilemap room generation, turn-based combat, and save system with cloud backup.",
-      tags: ["Unity", "C#", "Tilemap", "Android"],
-      links: { repo: "https://github.com/SeverusJake" },
+        "VR fire-safety simulation that trains employees and students to handle fire emergencies hands-on.",
+      tags: ["Meta XR SDK", "Locomotion", "Object interaction", "Meta Quest"],
+      links: { video: "https://www.youtube.com/watch?v=U5Xe9KLbGOI" },
     },
     {
-      title: "HelpDesk Lite",
-      category: "web",
+      title: "SkullViewer",
+      category: "xr",
+      platform: "MR · HoloLens 2",
       blurb:
-        "Lightweight ticket tracker for small teams, built from what I wished I had on the helpdesk.",
-      tags: ["JavaScript", "Node.js", "SQLite"],
-      links: { live: "https://github.com/SeverusJake", repo: "https://github.com/SeverusJake" },
+        "Mixed-reality anatomy viewer for exploring human body and skull structures, with hand menus and an in-scene measuring ruler.",
+      tags: ["HoloLens 2", "MRTK", "Hand menu", "Ruler tool"],
+      links: { video: "https://www.youtube.com/watch?v=aXELG-q-zRc" },
+    },
+    {
+      title: "insightScanX",
+      category: "xr",
+      platform: "AR · iOS",
+      blurb:
+        "Scans real-world objects with an iPhone and turns them into 3D models for use on a computer.",
+      tags: ["iOS", "Point cloud", "Lightship"],
+      links: { video: "https://www.youtube.com/watch?v=AbNXsz7axj4" },
+    },
+    {
+      title: "VIBNewYear",
+      category: "xr",
+      platform: "WebAR · WebGL",
+      blurb:
+        "Interactive 3D greeting cards for events, running right in the browser with WebGL.",
+      tags: ["WebGL", "Shader Graph", "Custom shaders", "Zappar"],
+      links: { video: "https://www.youtube.com/watch?v=4Bow2QwC_pQ" },
+    },
+    {
+      title: "DefeatDengue",
+      category: "game",
+      platform: "Game · Web",
+      blurb:
+        "Tower defense game that teaches players how to protect themselves against dengue mosquitoes.",
+      tags: ["Enemy spawn system", "Object pooling", "Weapon design", "Difficulty settings", "API calls"],
+      links: { demo: "https://www.defeatdengue.vn/" },
+    },
+    {
+      title: "Lost Cat",
+      category: "game",
+      platform: "Game · 2D platformer",
+      blurb:
+        "Mario-style platformer with physics-based character movement, enemy AI, a follow camera, and hand-built levels.",
+      tags: ["Physics", "Character movement", "Enemy AI", "Camera", "Level design"],
+      links: { demo: "https://jakenguyentt.github.io/LostCat_Demo/" },
+    },
+    {
+      title: "Zombie Survival",
+      category: "game",
+      platform: "Game · Top-down shooter",
+      blurb:
+        "Top-down shooter with roguelike mechanics and zombie enemy AI.",
+      tags: ["Top-down camera", "Roguelike", "Enemy AI"],
+      links: {}, // TODO: add demo link (the one provided pointed to Lost Cat)
     },
     {
       title: "This Portfolio",
@@ -75,9 +127,12 @@ window.CONTENT = {
   skills: [
     // PLACEHOLDER — keep what's true, add what's missing.
     {
-      group: "Game Dev",
+      group: "Game & XR Dev",
       icon: "game",
-      items: ["Unity", "C#", "URP", "Shader Graph", "Physics", "UI Toolkit", "Mobile builds"],
+      items: [
+        "Unity", "C#", "Shader Graph", "Physics", "Enemy AI",
+        "AR", "Meta Quest (Meta XR SDK)", "HoloLens 2 (MRTK)", "Lightship", "Zappar", "WebGL", "Firebase",
+      ],
     },
     {
       group: "Web",

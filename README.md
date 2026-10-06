@@ -13,14 +13,14 @@ All text lives in [`js/content.js`](js/content.js). Search for `PLACEHOLDER` and
 | Name, role, tagline, bio | `profile` |
 | Contact email | `profile.email` and the `Email` entry in `links` |
 | GitHub / LinkedIn | `links` |
-| Projects | `projects`: `category` is `"unity"` or `"web"` |
+| Projects | `projects`: `category` is `"xr"`, `"game"`, or `"web"` (chips appear only for categories in use) |
 | Skills | `skills` |
 | Jobs | `experience`, newest first |
 
 **Project images:** put a 16:9 image in `assets/img/` and set `image: "assets/img/name.png"`.
-Projects without an image get a gradient tile with their initials.
+Without an image, a YouTube `video` link's thumbnail is used. Otherwise the card gets a gradient tile with its initials.
 
-**Project links:** any of `live`, `repo`, `play`. Links you leave out are hidden.
+**Project links:** any of `demo`, `android`, `ios`, `video`, `live`, `repo`. Links you leave out are hidden.
 
 **CV:** replace `assets/resume.pdf` with your own file (keep the name, or change `profile.resumeUrl`).
 

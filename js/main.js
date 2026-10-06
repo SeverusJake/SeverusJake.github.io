@@ -15,8 +15,14 @@
       '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></g></svg>',
     repo:
       '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5"/><path d="m16 7 5 5-5 5"/></g></svg>',
-    play:
+    demo:
       '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>',
+    video:
+      '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path fill="currentColor" d="m10 9 5 3-5 3z"/></g></svg>',
+    android:
+      '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M5 3.6v16.8a.6.6 0 0 0 .9.52l14.4-8.4a.6.6 0 0 0 0-1.04L5.9 3.08a.6.6 0 0 0-.9.52zM5.3 3.3l9.2 8.7-9.2 8.7"/></svg>',
+    ios:
+      '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.32-3.5zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.64-1.05 1.67-.92 2.66.97.07 1.96-.49 2.56-1.21z"/></svg>',
     game:
       '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r=".6" fill="currentColor"/><circle cx="18" cy="13.5" r=".6" fill="currentColor"/></g></svg>',
     web:
@@ -25,8 +31,16 @@
       '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></g></svg>',
   };
 
-  var CATEGORY_LABELS = { all: "All", unity: "Unity", web: "Web" };
-  var LINK_LABELS = { live: "Live", repo: "Code", play: "Play" };
+  // Key order here is the chip order and the link-button order.
+  var CATEGORY_LABELS = { all: "All", xr: "AR / VR", game: "Games", web: "Web" };
+  var LINK_LABELS = {
+    demo: "Play demo",
+    android: "Google Play",
+    ios: "App Store",
+    video: "Watch video",
+    live: "Live site",
+    repo: "Code",
+  };
 
   var reduceMotion =
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -65,6 +79,11 @@
     return isExternal(url) ? { href: url, target: "_blank", rel: "noopener" } : { href: url };
   }
 
+  function youtubeThumb(url) {
+    var match = /(?:youtube\.com\/watch\?(?:.*&)?v=|youtu\.be\/)([\w-]{11})/.exec(url || "");
+    return match ? "https://img.youtube.com/vi/" + match[1] + "/hqdefault.jpg" : null;
+  }
+
   function initials(title) {
     return title
       .split(/\s+/)
@@ -87,17 +106,27 @@
     logo.appendChild(el("span", { class: "logo-dot", text: "." }));
   }
 
-  function projectCard(project) {
-    var thumb = project.image
-      ? el("img", { class: "project-thumb", src: project.image, alt: "", loading: "lazy" })
-      : el("div", { class: "project-thumb project-thumb-fallback", "aria-hidden": "true", text: initials(project.title) });
+  function projectThumb(project) {
+    var fallback = el("div", {
+      class: "project-thumb project-thumb-fallback",
+      "aria-hidden": "true",
+      text: initials(project.title),
+    });
+    var src = project.image || youtubeThumb((project.links || {}).video);
+    if (!src) return fallback;
 
+    var img = el("img", { class: "project-thumb", src: src, alt: "", loading: "lazy" });
+    img.addEventListener("error", function () { img.replaceWith(fallback); });
+    return img;
+  }
+
+  function projectCard(project) {
     var tags = el("ul", { class: "tag-list" }, (project.tags || []).map(function (tag) {
       return el("li", { class: "tag", text: tag });
     }));
 
     var links = project.links || {};
-    var buttons = ["play", "live", "repo"]
+    var buttons = Object.keys(LINK_LABELS)
       .filter(function (key) { return links[key]; })
       .map(function (key, i) {
         var attrs = linkAttrs(links[key]);
@@ -108,9 +137,9 @@
       });
 
     return el("article", { class: "glass project-card reveal" }, [
-      thumb,
+      projectThumb(project),
       el("div", { class: "project-body" }, [
-        el("p", { class: "project-meta", text: CATEGORY_LABELS[project.category] || project.category }),
+        el("p", { class: "project-meta", text: project.platform || CATEGORY_LABELS[project.category] || project.category }),
         el("h3", { text: project.title }),
         el("p", { text: project.blurb }),
         tags,
@@ -147,7 +176,12 @@
       renderProjects(projects, current);
     }
 
-    ["all", "unity", "web"].forEach(function (key) {
+    var used = projects.map(function (p) { return p.category; });
+    var keys = Object.keys(CATEGORY_LABELS).filter(function (key) {
+      return key === "all" || used.indexOf(key) !== -1;
+    });
+
+    keys.forEach(function (key) {
       var chip = el("button", { class: "chip", type: "button", "data-filter": key, text: CATEGORY_LABELS[key] });
       chip.addEventListener("click", function () {
         if (current === key) return;

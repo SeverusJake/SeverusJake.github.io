@@ -114,6 +114,24 @@ window.CONTENT = {
       links: {}, // TODO: add demo link (the one provided pointed to Lost Cat)
     },
     {
+      title: "What The Pho Canberra",
+      category: "web",
+      platform: "Web · Restaurant site",
+      blurb:
+        "Website for a Vietnamese restaurant with three Canberra locations: menu, online ordering, catering packages, and directions to each venue.",
+      tags: ["Astro", "Square online ordering", "Google Maps", "Responsive"],
+      links: { live: "https://whatthepho.com.au/" },
+    },
+    {
+      title: "oToolRun",
+      category: "web",
+      platform: "Web · Utility platform",
+      blurb:
+        "130+ free browser tools across 11 categories, from word counters and QR codes to JSON formatting. Everything runs locally in the browser, with no sign-up and no uploads.",
+      tags: ["JavaScript", "Client-side processing", "Privacy-first", "CDN"],
+      links: { live: "https://otoolrun.com/" },
+    },
+    {
       title: "This Portfolio",
       category: "web",
       blurb:

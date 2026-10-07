@@ -31,19 +31,24 @@
       '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></g></svg>',
   };
 
-  // Key order here is the chip order and the link-button order.
-  var CATEGORY_LABELS = { all: "All", xr: "AR / VR", game: "Games", web: "Web" };
-  var LINK_LABELS = {
-    demo: "Play demo",
-    android: "Google Play",
-    ios: "App Store",
-    video: "Watch video",
-    live: "Live site",
-    repo: "Code",
-  };
+  // Key order is the chip order and the link-button order. Labels live in CONTENT.ui.
+  var CATEGORIES = ["all", "xr", "game", "web"];
+  var LINK_KEYS = ["demo", "android", "ios", "video", "live", "repo"];
+
+  var root = document.documentElement;
+  var data = window.CONTENT;
 
   var reduceMotion =
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer =
+    window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var fancyMotion = finePointer && !reduceMotion;
+
+  var state = {
+    filter: "all",
+    formStatus: "", // ui key under "form", e.g. "success"
+    revealNow: false, // true while re-rendering for a language switch
+  };
 
   var revealObserver = null;
 
@@ -71,6 +76,29 @@
     return document.getElementById(id);
   }
 
+  function lang() {
+    return root.getAttribute("lang") === "vi" ? "vi" : "en";
+  }
+
+  // Content values are either plain strings or { en, vi }.
+  function tr(value) {
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      return value[lang()] || value.en || "";
+    }
+    return value == null ? "" : value;
+  }
+
+  // Interface text lookup, e.g. ui("nav.projects"). Falls back to English.
+  function ui(path) {
+    function find(dict) {
+      return path.split(".").reduce(function (node, key) {
+        return node && node[key];
+      }, dict);
+    }
+    var dicts = (data && data.ui) || {};
+    return find(dicts[lang()]) || find(dicts.en) || "";
+  }
+
   function isExternal(url) {
     return /^https?:\/\//.test(url);
   }
@@ -95,22 +123,45 @@
 
   // --- rendering ------------------------------------------------------------
 
+  function applyStaticText() {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-i18n]"), function (node) {
+      var text = ui(node.getAttribute("data-i18n"));
+      if (text) node.textContent = text;
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-i18n-aria]"), function (node) {
+      var text = ui(node.getAttribute("data-i18n-aria"));
+      if (text) node.setAttribute("aria-label", text);
+    });
+  }
+
   function renderHero(profile) {
     byId("hero-name").textContent = profile.name;
-    byId("hero-role").textContent = profile.role;
-    byId("hero-tagline").textContent = profile.tagline;
+    byId("hero-role").textContent = tr(profile.role);
+    byId("hero-tagline").textContent = tr(profile.tagline);
     byId("cv-link").setAttribute("href", profile.resumeUrl);
+    byId("logo-text").textContent = profile.shortName;
+  }
 
-    var logo = byId("logo");
-    logo.textContent = profile.shortName;
-    logo.appendChild(el("span", { class: "logo-dot", text: "." }));
+  function renderStats(projects) {
+    var box = byId("hero-stats");
+    var counts = { total: projects.length };
+    projects.forEach(function (p) { counts[p.category] = (counts[p.category] || 0) + 1; });
+
+    box.textContent = "";
+    ["total", "xr", "game", "web"].forEach(function (key) {
+      if (!counts[key]) return;
+      box.appendChild(el("div", { class: "stat" }, [
+        el("dt", { text: ui("stats." + key) }),
+        el("dd", { text: String(counts[key]) }),
+      ]));
+    });
   }
 
   function projectThumb(project) {
     var fallback = el("div", {
       class: "project-thumb project-thumb-fallback",
       "aria-hidden": "true",
-      text: initials(project.title),
+      text: initials(tr(project.title)),
     });
     var src = project.image || youtubeThumb((project.links || {}).video);
     if (!src) return fallback;
@@ -120,43 +171,67 @@
     return img;
   }
 
+  function addTilt(card) {
+    if (!fancyMotion) return;
+
+    card.addEventListener("pointermove", function (event) {
+      var rect = card.getBoundingClientRect();
+      var px = (event.clientX - rect.left) / rect.width;
+      var py = (event.clientY - rect.top) / rect.height;
+      card.classList.add("tilting");
+      card.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
+      card.style.setProperty("--my", (py * 100).toFixed(1) + "%");
+      card.style.transform =
+        "perspective(900px) rotateX(" + ((0.5 - py) * 8).toFixed(2) + "deg) rotateY(" +
+        ((px - 0.5) * 10).toFixed(2) + "deg) translateY(-6px)";
+    });
+
+    card.addEventListener("pointerleave", function () {
+      card.classList.remove("tilting");
+      card.style.transform = "";
+    });
+  }
+
   function projectCard(project) {
+    var title = tr(project.title);
     var tags = el("ul", { class: "tag-list" }, (project.tags || []).map(function (tag) {
-      return el("li", { class: "tag", text: tag });
+      return el("li", { class: "tag", text: tr(tag) });
     }));
 
     var links = project.links || {};
-    var buttons = Object.keys(LINK_LABELS)
+    var buttons = LINK_KEYS
       .filter(function (key) { return links[key]; })
       .map(function (key, i) {
         var attrs = linkAttrs(links[key]);
         attrs.class = "btn btn-sm " + (i === 0 ? "btn-primary" : "btn-ghost");
         attrs.icon = key;
-        attrs["aria-label"] = LINK_LABELS[key] + ": " + project.title;
-        return el("a", attrs, [LINK_LABELS[key]]);
+        attrs["aria-label"] = ui("links." + key) + ": " + title;
+        return el("a", attrs, [ui("links." + key)]);
       });
 
-    return el("article", { class: "glass project-card reveal" }, [
+    var card = el("article", { class: "glass project-card reveal" }, [
       projectThumb(project),
       el("div", { class: "project-body" }, [
-        el("p", { class: "project-meta", text: project.platform || CATEGORY_LABELS[project.category] || project.category }),
-        el("h3", { text: project.title }),
-        el("p", { text: project.blurb }),
+        el("p", { class: "project-meta", text: tr(project.platform) || ui("filters." + project.category) }),
+        el("h3", { text: title }),
+        el("p", { text: tr(project.blurb) }),
         tags,
         buttons.length ? el("div", { class: "project-links" }, buttons) : null,
       ]),
     ]);
+    addTilt(card);
+    return card;
   }
 
-  function renderProjects(projects, filter) {
+  function renderProjects(projects) {
     var grid = byId("projects-grid");
-    var list = filter === "all"
+    var list = state.filter === "all"
       ? projects
-      : projects.filter(function (p) { return p.category === filter; });
+      : projects.filter(function (p) { return p.category === state.filter; });
 
     grid.textContent = "";
     if (!list.length) {
-      grid.appendChild(el("p", { class: "glass empty-state", text: "No projects in this category yet." }));
+      grid.appendChild(el("p", { class: "glass empty-state", text: ui("empty") }));
       return;
     }
     list.forEach(function (project) {
@@ -167,41 +242,43 @@
 
   function renderFilters(projects) {
     var wrap = byId("project-filters");
-    var current = "all";
-
-    function update() {
-      Array.prototype.forEach.call(wrap.children, function (chip) {
-        chip.setAttribute("aria-pressed", String(chip.dataset.filter === current));
-      });
-      renderProjects(projects, current);
-    }
-
     var used = projects.map(function (p) { return p.category; });
-    var keys = Object.keys(CATEGORY_LABELS).filter(function (key) {
+    var keys = CATEGORIES.filter(function (key) {
       return key === "all" || used.indexOf(key) !== -1;
     });
+    if (keys.indexOf(state.filter) === -1) state.filter = "all";
 
+    function syncPressed() {
+      Array.prototype.forEach.call(wrap.children, function (chip) {
+        chip.setAttribute("aria-pressed", String(chip.getAttribute("data-filter") === state.filter));
+      });
+    }
+
+    wrap.textContent = "";
     keys.forEach(function (key) {
-      var chip = el("button", { class: "chip", type: "button", "data-filter": key, text: CATEGORY_LABELS[key] });
+      var chip = el("button", { class: "chip", type: "button", "data-filter": key, text: ui("filters." + key) });
       chip.addEventListener("click", function () {
-        if (current === key) return;
-        current = key;
-        update();
+        if (state.filter === key) return;
+        state.filter = key;
+        syncPressed();
+        renderProjects(projects);
       });
       wrap.appendChild(chip);
     });
 
-    update();
+    syncPressed();
+    renderProjects(projects);
   }
 
   function renderSkills(skills) {
     var grid = byId("skills-grid");
+    grid.textContent = "";
     skills.forEach(function (group) {
       grid.appendChild(
         el("div", { class: "glass skill-panel reveal" }, [
-          el("h3", null, [el("span", { class: "skill-icon", icon: group.icon }), group.group]),
+          el("h3", null, [el("span", { class: "skill-icon", icon: group.icon }), tr(group.group)]),
           el("ul", { class: "tag-list" }, group.items.map(function (item) {
-            return el("li", { class: "tag", text: item });
+            return el("li", { class: "tag", text: tr(item) });
           })),
         ])
       );
@@ -210,14 +287,15 @@
 
   function renderExperience(experience) {
     var list = byId("timeline");
+    list.textContent = "";
     experience.forEach(function (job) {
       list.appendChild(
         el("li", { class: "glass timeline-item reveal" }, [
-          el("p", { class: "timeline-period", text: job.period }),
-          el("h3", { text: job.role }),
-          el("p", { class: "timeline-org", text: job.org }),
+          el("p", { class: "timeline-period", text: tr(job.period) }),
+          el("h3", { text: tr(job.role) }),
+          el("p", { class: "timeline-org", text: tr(job.org) }),
           el("ul", { class: "timeline-points" }, (job.points || []).map(function (point) {
-            return el("li", { text: point });
+            return el("li", { text: tr(point) });
           })),
         ])
       );
@@ -226,35 +304,62 @@
 
   function renderAbout(profile) {
     var box = byId("about-text");
+    box.textContent = "";
     profile.about.forEach(function (paragraph) {
-      box.appendChild(el("p", { text: paragraph }));
+      box.appendChild(el("p", { text: tr(paragraph) }));
     });
   }
 
   function renderContact(profile, links) {
-    byId("contact-text").textContent = profile.contactText;
+    byId("contact-text").textContent = tr(profile.contactText);
+    byId("contact-form").hidden = !profile.formspreeId;
+    byId("form-status").textContent = state.formStatus ? ui("form." + state.formStatus) : "";
+
     var wrap = byId("contact-links");
+    wrap.textContent = "";
     links.forEach(function (link, i) {
       var attrs = linkAttrs(link.url);
-      attrs.class = "btn " + (i === 0 ? "btn-primary" : "btn-ghost");
+      // Primary style only when there's no form competing for attention.
+      attrs.class = "btn " + (i === 0 && !profile.formspreeId ? "btn-primary" : "btn-ghost");
       attrs.icon = link.icon;
-      wrap.appendChild(el("a", attrs, [link.label]));
+      wrap.appendChild(el("a", attrs, [tr(link.label)]));
     });
   }
 
-  // --- interactions ---------------------------------------------------------
+  function renderAll() {
+    applyStaticText();
+    renderHero(data.profile);
+    renderStats(data.projects);
+    renderFilters(data.projects);
+    renderSkills(data.skills);
+    renderExperience(data.experience);
+    renderAbout(data.profile);
+    renderContact(data.profile, data.links);
+    syncThemeButton();
+    syncLangButton();
+    syncMenuButton();
+    observeReveals();
+  }
+
+  // --- theme & language -----------------------------------------------------
+
+  function save(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch (e) {
+      // Storage blocked: the choice still applies, just isn't remembered.
+    }
+  }
+
+  function syncThemeButton() {
+    var button = byId("theme-toggle");
+    var dark = root.getAttribute("data-theme") === "dark";
+    button.setAttribute("aria-pressed", String(dark));
+    button.setAttribute("aria-label", ui(dark ? "theme.toLight" : "theme.toDark"));
+  }
 
   function initTheme() {
-    var root = document.documentElement;
-    var button = byId("theme-toggle");
-
-    function sync() {
-      var dark = root.getAttribute("data-theme") === "dark";
-      button.setAttribute("aria-pressed", String(dark));
-      button.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-    }
-
-    button.addEventListener("click", function () {
+    byId("theme-toggle").addEventListener("click", function () {
       var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
 
       if (!reduceMotion) {
@@ -263,15 +368,32 @@
       }
 
       root.setAttribute("data-theme", next);
-      try {
-        localStorage.setItem("theme", next);
-      } catch (e) {
-        // Storage blocked: theme still switches, just isn't remembered.
-      }
-      sync();
+      save("theme", next);
+      syncThemeButton();
     });
+  }
 
-    sync();
+  function syncLangButton() {
+    byId("lang-toggle").setAttribute("aria-label", ui("lang"));
+  }
+
+  function initLang() {
+    byId("lang-toggle").addEventListener("click", function () {
+      var next = lang() === "vi" ? "en" : "vi";
+      root.setAttribute("lang", next);
+      save("lang", next);
+
+      state.revealNow = true;
+      renderAll();
+      state.revealNow = false;
+    });
+  }
+
+  // --- navigation -----------------------------------------------------------
+
+  function syncMenuButton() {
+    var open = byId("site-header").classList.contains("nav-open");
+    byId("nav-toggle").setAttribute("aria-label", ui(open ? "menu.close" : "menu.open"));
   }
 
   function initNav() {
@@ -281,7 +403,7 @@
     function setOpen(open) {
       header.classList.toggle("nav-open", open);
       toggle.setAttribute("aria-expanded", String(open));
-      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      syncMenuButton();
     }
 
     toggle.addEventListener("click", function () {
@@ -300,10 +422,140 @@
     });
   }
 
+  // Highlight the nav link for the section crossing the middle of the viewport.
+  function initActiveNav() {
+    if (!("IntersectionObserver" in window)) return;
+
+    var links = {};
+    Array.prototype.forEach.call(document.querySelectorAll("#nav-links a"), function (link) {
+      links[link.getAttribute("href").slice(1)] = link;
+    });
+
+    function setActive(id) {
+      Object.keys(links).forEach(function (key) {
+        var on = key === id;
+        links[key].classList.toggle("active", on);
+        if (on) links[key].setAttribute("aria-current", "true");
+        else links[key].removeAttribute("aria-current");
+      });
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+
+    observer.observe(byId("top"));
+    Object.keys(links).forEach(function (id) {
+      var section = byId(id);
+      if (section) observer.observe(section);
+    });
+  }
+
+  function initScrollUi() {
+    var toTop = byId("to-top");
+    var ticking = false;
+
+    function update() {
+      toTop.classList.toggle("show", window.scrollY > 600);
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }, { passive: true });
+
+    update();
+  }
+
+  // --- pointer effects ------------------------------------------------------
+
+  // Blobs drift opposite the cursor and a soft glow follows it.
+  function initPointerFx() {
+    if (!fancyMotion) return;
+
+    var glow = byId("cursor-glow");
+    var blobs = byId("blob-layer");
+    var x = 0;
+    var y = 0;
+    var pending = false;
+
+    function paint() {
+      pending = false;
+      glow.style.transform = "translate(" + x + "px, " + y + "px)";
+      var dx = (x / window.innerWidth - 0.5) * -40;
+      var dy = (y / window.innerHeight - 0.5) * -40;
+      blobs.style.transform = "translate(" + dx.toFixed(1) + "px, " + dy.toFixed(1) + "px)";
+    }
+
+    document.addEventListener("pointermove", function (event) {
+      x = event.clientX;
+      y = event.clientY;
+      glow.classList.add("on");
+      if (!pending) {
+        pending = true;
+        window.requestAnimationFrame(paint);
+      }
+    }, { passive: true });
+
+    document.documentElement.addEventListener("pointerleave", function () {
+      glow.classList.remove("on");
+    });
+  }
+
+  // --- contact form ---------------------------------------------------------
+
+  function initForm(profile) {
+    var form = byId("contact-form");
+    var status = byId("form-status");
+    var button = form.querySelector("button[type=submit]");
+
+    function setStatus(key, kind) {
+      state.formStatus = key;
+      status.textContent = key ? ui("form." + key) : "";
+      status.className = "form-status" + (kind ? " " + kind : "");
+    }
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (!profile.formspreeId) return;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      button.disabled = true;
+      setStatus("sending");
+
+      fetch("https://formspree.io/f/" + encodeURIComponent(profile.formspreeId), {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          form.reset();
+          setStatus("success", "ok");
+        })
+        .catch(function () {
+          setStatus("error", "err");
+        })
+        .then(function () {
+          button.disabled = false;
+        });
+    });
+  }
+
+  // --- reveal ---------------------------------------------------------------
+
   function observeReveals(scope) {
     var items = (scope || document).querySelectorAll(".reveal:not(.visible)");
 
-    if (reduceMotion || !("IntersectionObserver" in window)) {
+    if (state.revealNow || reduceMotion || !("IntersectionObserver" in window)) {
       Array.prototype.forEach.call(items, function (item) { item.classList.add("visible"); });
       return;
     }
@@ -325,10 +577,11 @@
   // --- boot -----------------------------------------------------------------
 
   function init() {
-    var data = window.CONTENT;
-
     initTheme();
     initNav();
+    initActiveNav();
+    initScrollUi();
+    initPointerFx();
     byId("year").textContent = String(new Date().getFullYear());
 
     if (!data) {
@@ -337,13 +590,9 @@
       return;
     }
 
-    renderHero(data.profile);
-    renderFilters(data.projects);
-    renderSkills(data.skills);
-    renderExperience(data.experience);
-    renderAbout(data.profile);
-    renderContact(data.profile, data.links);
-    observeReveals();
+    initLang();
+    initForm(data.profile);
+    renderAll();
   }
 
   if (document.readyState === "loading") {

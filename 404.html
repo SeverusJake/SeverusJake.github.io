@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — Nguyen The Thien Phuc</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      if (localStorage.getItem('lang') === 'vi') document.documentElement.setAttribute('lang', 'vi');
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Absolute paths: GitHub Pages serves this page for any missing URL, at any depth. -->
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .nf {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      text-align: center;
+    }
+    .nf-card { padding: 48px 28px; max-width: 520px; width: 100%; }
+    .nf-code {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: clamp(5rem, 22vw, 8rem);
+      line-height: 1;
+    }
+    .nf h1 { margin-top: 12px; font-size: clamp(1.4rem, 5vw, 1.9rem); }
+    .nf p:not(.nf-code) { margin: 12px 0 28px; color: var(--text-muted); }
+    .vi-only { display: none; }
+    :root[lang="vi"] .vi-only { display: block; }
+    :root[lang="vi"] .en-only { display: none; }
+  </style>
+</head>
+<body>
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob-layer">
+      <span class="blob blob-1"></span>
+      <span class="blob blob-2"></span>
+      <span class="blob blob-3"></span>
+    </div>
+  </div>
+
+  <main class="nf">
+    <div class="glass nf-card">
+      <p class="nf-code gradient-text" aria-hidden="true">404</p>
+      <div class="en-only">
+        <h1>This page wandered off</h1>
+        <p>The link may be broken or the page may have moved.</p>
+        <a class="btn btn-primary" href="/">Back to home</a>
+      </div>
+      <div class="vi-only" lang="vi">
+        <h1>Không tìm thấy trang</h1>
+        <p>Liên kết có thể bị lỗi hoặc trang đã được chuyển đi.</p>
+        <a class="btn btn-primary" href="/">Về trang chủ</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

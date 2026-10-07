@@ -4,25 +4,45 @@
  *  to change for normal content updates.
  *
  *  Anything marked  // PLACEHOLDER  is sample content — replace it.
+ *
+ *  Translations: any text can be a plain string (same in both
+ *  languages) or { en: "...", vi: "..." }.
  * ============================================================
  */
 window.CONTENT = {
   profile: {
     name: "Nguyen The Thien Phuc",
     shortName: "Phuc",
-    role: "Unity & Web Developer",
-    tagline:
-      "I build games and websites that feel good to use — and, thanks to years in IT support, I know how to keep them running when real users show up.",
+    role: { en: "Unity & Web Developer", vi: "Lập trình viên Unity & Web" },
+    tagline: {
+      en: "I build games and websites that feel good to use — and, thanks to years in IT support, I know how to keep them running when real users show up.",
+      vi: "Tôi xây dựng game và website mang lại trải nghiệm tốt — và nhờ nhiều năm làm hỗ trợ IT, tôi biết cách giữ chúng vận hành ổn định khi người dùng thật sử dụng.",
+    },
     about: [
       // PLACEHOLDER — rewrite in your own words.
-      "I'm a developer working across Unity and the web. On the game side I build gameplay systems, tools, and polished UI in C#. On the web side I make fast, accessible sites and small web apps.",
-      "Before writing code full-time I worked in IT support and on the helpdesk. That taught me to debug calmly under pressure, explain technical problems in plain language, and care about the person on the other side of the screen.",
-      "I'm looking for a developer role where I can ship things people actually use.",
+      {
+        en: "I'm a developer working across Unity and the web. On the Unity side I build AR, VR, and mixed-reality apps and games in C#. On the web side I make fast, accessible sites and browser tools.",
+        vi: "Tôi là lập trình viên làm việc với Unity và web. Với Unity, tôi phát triển ứng dụng AR, VR, thực tế hỗn hợp và game bằng C#. Với web, tôi làm các website và công cụ trình duyệt nhanh, dễ tiếp cận.",
+      },
+      {
+        en: "Before writing code full-time I worked in IT support and on the helpdesk. That taught me to debug calmly under pressure, explain technical problems in plain language, and care about the person on the other side of the screen.",
+        vi: "Trước khi lập trình toàn thời gian, tôi làm hỗ trợ IT và helpdesk. Công việc đó dạy tôi bình tĩnh xử lý lỗi dưới áp lực, giải thích vấn đề kỹ thuật bằng ngôn ngữ dễ hiểu và quan tâm đến người dùng phía bên kia màn hình.",
+      },
+      {
+        en: "I'm looking for a developer role where I can ship things people actually use.",
+        vi: "Tôi đang tìm vị trí lập trình viên nơi tôi có thể tạo ra những sản phẩm được mọi người thực sự sử dụng.",
+      },
     ],
-    contactText:
-      "Open to developer roles and freelance projects. The fastest way to reach me is email.",
+    contactText: {
+      en: "Open to developer roles and freelance projects — I'd love to hear from you.",
+      vi: "Sẵn sàng cho vị trí lập trình viên và dự án freelance — rất mong nhận được tin từ bạn.",
+    },
     email: "you@example.com", // PLACEHOLDER — your public contact email
     resumeUrl: "assets/resume.pdf", // PLACEHOLDER — replace the PDF file
+
+    // Contact form: create a free form at https://formspree.io, then paste its
+    // ID here (the part after /f/, e.g. "xyzabcd"). Empty = form hidden.
+    formspreeId: "",
   },
 
   // icon: "github" | "linkedin" | "email" | "itch"
@@ -34,7 +54,7 @@ window.CONTENT = {
 
   // category: "xr" | "game" | "web"  — filter chips only appear for categories in use
   // platform: short label shown above the title (falls back to the category name)
-  // image: optional path like "assets/img/my-game.png" (16:9 works best).
+  // image: optional path like "assets/img/my-game.jpg" (16:9 works best).
   //        If omitted and links.video is a YouTube URL, its thumbnail is used.
   // links: any of demo / android / ios / video / live / repo — missing ones are hidden
   projects: [
@@ -42,8 +62,10 @@ window.CONTENT = {
       title: "Akooland",
       category: "xr",
       platform: "AR · iOS & Android",
-      blurb:
-        "AR coloring card game for kids: color a printed card, scan it, and watch the drawing come to life in 3D. Published on Google Play and the App Store.",
+      blurb: {
+        en: "AR coloring card game for kids: color a printed card, scan it, and watch the drawing come to life in 3D. Published on Google Play and the App Store.",
+        vi: "Game thẻ tô màu AR cho trẻ em: tô màu thẻ in, quét thẻ và xem bức vẽ sống động trong không gian 3D. Đã phát hành trên Google Play và App Store.",
+      },
       tags: ["AR", "Image recognition", "Particle effects", "Firebase Storage", "Firebase API"],
       links: {
         android: "https://play.google.com/store/apps/details?id=com.thienlong.arcolor&hl=en&gl=US",
@@ -54,8 +76,10 @@ window.CONTENT = {
       title: "PCCC Fire Safety",
       category: "xr",
       platform: "VR · Meta Quest 2 & 3",
-      blurb:
-        "VR fire-safety simulation that trains employees and students to handle fire emergencies hands-on.",
+      blurb: {
+        en: "VR fire-safety simulation that trains employees and students to handle fire emergencies hands-on.",
+        vi: "Mô phỏng phòng cháy chữa cháy bằng VR, giúp nhân viên và học sinh thực hành xử lý tình huống cháy.",
+      },
       tags: ["Meta XR SDK", "Locomotion", "Object interaction", "Meta Quest"],
       links: { video: "https://www.youtube.com/watch?v=U5Xe9KLbGOI" },
     },
@@ -63,8 +87,10 @@ window.CONTENT = {
       title: "SkullViewer",
       category: "xr",
       platform: "MR · HoloLens 2",
-      blurb:
-        "Mixed-reality anatomy viewer for exploring human body and skull structures, with hand menus and an in-scene measuring ruler.",
+      blurb: {
+        en: "Mixed-reality anatomy viewer for exploring human body and skull structures, with hand menus and an in-scene measuring ruler.",
+        vi: "Ứng dụng thực tế hỗn hợp để khám phá cấu trúc cơ thể người và hộp sọ, có menu trên tay và thước đo trong không gian.",
+      },
       tags: ["HoloLens 2", "MRTK", "Hand menu", "Ruler tool"],
       links: { video: "https://www.youtube.com/watch?v=aXELG-q-zRc" },
     },
@@ -72,8 +98,10 @@ window.CONTENT = {
       title: "insightScanX",
       category: "xr",
       platform: "AR · iOS",
-      blurb:
-        "Scans real-world objects with an iPhone and turns them into 3D models for use on a computer.",
+      blurb: {
+        en: "Scans real-world objects with an iPhone and turns them into 3D models for use on a computer.",
+        vi: "Quét vật thể thật bằng iPhone và chuyển thành mô hình 3D để sử dụng trên máy tính.",
+      },
       tags: ["iOS", "Point cloud", "Lightship"],
       links: { video: "https://www.youtube.com/watch?v=AbNXsz7axj4" },
     },
@@ -81,8 +109,10 @@ window.CONTENT = {
       title: "VIBNewYear",
       category: "xr",
       platform: "WebAR · WebGL",
-      blurb:
-        "Interactive 3D greeting cards for events, running right in the browser with WebGL.",
+      blurb: {
+        en: "Interactive 3D greeting cards for events, running right in the browser with WebGL.",
+        vi: "Thiệp chúc mừng 3D tương tác cho sự kiện, chạy trực tiếp trên trình duyệt bằng WebGL.",
+      },
       tags: ["WebGL", "Shader Graph", "Custom shaders", "Zappar"],
       links: { video: "https://www.youtube.com/watch?v=4Bow2QwC_pQ" },
     },
@@ -90,8 +120,10 @@ window.CONTENT = {
       title: "DefeatDengue",
       category: "game",
       platform: "Game · Web",
-      blurb:
-        "Tower defense game that teaches players how to protect themselves against dengue mosquitoes.",
+      blurb: {
+        en: "Tower defense game that teaches players how to protect themselves against dengue mosquitoes.",
+        vi: "Game thủ thành giúp người chơi học cách phòng chống muỗi sốt xuất huyết.",
+      },
       tags: ["Enemy spawn system", "Object pooling", "Weapon design", "Difficulty settings", "API calls"],
       links: { demo: "https://www.defeatdengue.vn/" },
     },
@@ -99,8 +131,10 @@ window.CONTENT = {
       title: "Lost Cat",
       category: "game",
       platform: "Game · 2D platformer",
-      blurb:
-        "Mario-style platformer with physics-based character movement, enemy AI, a follow camera, and hand-built levels.",
+      blurb: {
+        en: "Mario-style platformer with physics-based character movement, enemy AI, a follow camera, and hand-built levels.",
+        vi: "Game platformer phong cách Mario với di chuyển nhân vật theo vật lý, AI kẻ địch, camera bám theo và các màn chơi tự thiết kế.",
+      },
       tags: ["Physics", "Character movement", "Enemy AI", "Camera", "Level design"],
       links: { demo: "https://jakenguyentt.github.io/LostCat_Demo/" },
     },
@@ -108,35 +142,45 @@ window.CONTENT = {
       title: "Zombie Survival",
       category: "game",
       platform: "Game · Top-down shooter",
-      blurb:
-        "Top-down shooter with roguelike mechanics and zombie enemy AI.",
+      blurb: {
+        en: "Top-down shooter with roguelike mechanics and zombie enemy AI.",
+        vi: "Game bắn súng góc nhìn từ trên xuống với cơ chế roguelike và AI zombie.",
+      },
       tags: ["Top-down camera", "Roguelike", "Enemy AI"],
       links: {}, // TODO: add demo link (the one provided pointed to Lost Cat)
     },
     {
       title: "What The Pho Canberra",
       category: "web",
-      platform: "Web · Restaurant site",
-      blurb:
-        "Website for a Vietnamese restaurant with three Canberra locations: menu, online ordering, catering packages, and directions to each venue.",
+      platform: { en: "Web · Restaurant site", vi: "Web · Website nhà hàng" },
+      image: "assets/img/whatthepho.jpg",
+      blurb: {
+        en: "Website for a Vietnamese restaurant with three Canberra locations: menu, online ordering, catering packages, and directions to each venue.",
+        vi: "Website cho nhà hàng Việt với ba chi nhánh tại Canberra: thực đơn, đặt món online, gói catering và chỉ đường đến từng cửa hàng.",
+      },
       tags: ["Astro", "Square online ordering", "Google Maps", "Responsive"],
       links: { live: "https://whatthepho.com.au/" },
     },
     {
       title: "oToolRun",
       category: "web",
-      platform: "Web · Utility platform",
-      blurb:
-        "130+ free browser tools across 11 categories, from word counters and QR codes to JSON formatting. Everything runs locally in the browser, with no sign-up and no uploads.",
+      platform: { en: "Web · Utility platform", vi: "Web · Nền tảng công cụ" },
+      image: "assets/img/otoolrun.jpg",
+      blurb: {
+        en: "130+ free browser tools across 11 categories, from word counters and QR codes to JSON formatting. Everything runs locally in the browser, with no sign-up and no uploads.",
+        vi: "Hơn 130 công cụ miễn phí trong 11 danh mục, từ đếm từ, tạo mã QR đến định dạng JSON. Mọi thứ chạy ngay trên trình duyệt, không cần đăng ký, không tải dữ liệu lên.",
+      },
       tags: ["JavaScript", "Client-side processing", "Privacy-first", "CDN"],
       links: { live: "https://otoolrun.com/" },
     },
     {
-      title: "This Portfolio",
+      title: { en: "This Portfolio", vi: "Portfolio này" },
       category: "web",
-      blurb:
-        "Light/dark themed portfolio in plain HTML, CSS, and JavaScript. No build step, deployed on GitHub Pages.",
-      tags: ["HTML", "CSS", "JavaScript"],
+      blurb: {
+        en: "Bilingual, light/dark themed portfolio in plain HTML, CSS, and JavaScript. No build step, deployed on GitHub Pages.",
+        vi: "Portfolio song ngữ, giao diện sáng/tối, viết bằng HTML, CSS và JavaScript thuần. Không cần build, triển khai trên GitHub Pages.",
+      },
+      tags: ["HTML", "CSS", "JavaScript", "i18n"],
       links: { repo: "https://github.com/SeverusJake/SeverusJake.github.io" },
     },
   ],
@@ -155,10 +199,10 @@ window.CONTENT = {
     {
       group: "Web",
       icon: "web",
-      items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Node.js", "Git"],
+      items: ["HTML", "CSS", "JavaScript", "TypeScript", "Astro", "React", "Node.js", "Git"],
     },
     {
-      group: "IT & Systems",
+      group: { en: "IT & Systems", vi: "IT & Hệ thống" },
       icon: "server",
       items: ["Windows", "Active Directory", "Microsoft 365", "Networking", "PowerShell", "Ticketing", "Hardware"],
     },
@@ -170,30 +214,74 @@ window.CONTENT = {
     {
       role: "Unity Developer",
       org: "Studio Name",
-      period: "2024 — Present",
+      period: { en: "2024 — Present", vi: "2024 — Nay" },
       points: [
-        "Built gameplay systems and editor tools in C#.",
-        "Profiled and optimized builds for mobile targets.",
+        { en: "Built gameplay systems and editor tools in C#.", vi: "Xây dựng hệ thống gameplay và công cụ editor bằng C#." },
+        { en: "Profiled and optimized builds for mobile targets.", vi: "Phân tích và tối ưu hiệu năng bản build cho thiết bị di động." },
       ],
     },
     {
-      role: "Web Developer (Freelance)",
-      org: "Self-employed",
+      role: { en: "Web Developer (Freelance)", vi: "Lập trình viên Web (Freelance)" },
+      org: { en: "Self-employed", vi: "Tự do" },
       period: "2022 — 2024",
       points: [
-        "Designed and shipped responsive sites for small businesses.",
-        "Handled hosting, domains, and ongoing maintenance.",
+        { en: "Designed and shipped responsive sites for small businesses.", vi: "Thiết kế và triển khai website responsive cho doanh nghiệp nhỏ." },
+        { en: "Handled hosting, domains, and ongoing maintenance.", vi: "Quản lý hosting, tên miền và bảo trì định kỳ." },
       ],
     },
     {
-      role: "IT Support / Helpdesk Technician",
+      role: { en: "IT Support / Helpdesk Technician", vi: "Kỹ thuật viên Hỗ trợ IT / Helpdesk" },
       org: "Company Name",
       period: "2020 — 2022",
       points: [
-        "Resolved hardware, software, and network issues for 100+ users.",
-        "Automated account setup and routine fixes with PowerShell scripts.",
-        "Wrote knowledge-base articles that cut repeat tickets.",
+        { en: "Resolved hardware, software, and network issues for 100+ users.", vi: "Xử lý sự cố phần cứng, phần mềm và mạng cho hơn 100 người dùng." },
+        { en: "Automated account setup and routine fixes with PowerShell scripts.", vi: "Tự động hóa việc tạo tài khoản và các tác vụ sửa lỗi thường gặp bằng PowerShell." },
+        { en: "Wrote knowledge-base articles that cut repeat tickets.", vi: "Viết tài liệu hướng dẫn giúp giảm số yêu cầu hỗ trợ lặp lại." },
       ],
     },
   ],
+
+  // Interface text. Only translate the values.
+  ui: {
+    en: {
+      skip: "Skip to content",
+      nav: { projects: "Projects", skills: "Skills", experience: "Experience", about: "About", contact: "Contact" },
+      greeting: "Hi, I'm",
+      cta: { work: "View Work", contact: "Contact", cv: "Download CV" },
+      sections: { projects: "Projects", skills: "Skills", experience: "Experience", about: "About", contact: "Let's work together" },
+      filters: { all: "All", xr: "AR / VR", game: "Games", web: "Web" },
+      links: { demo: "Play demo", android: "Google Play", ios: "App Store", video: "Watch video", live: "Live site", repo: "Code" },
+      empty: "No projects in this category yet.",
+      stats: { total: "Projects", xr: "AR / VR apps", game: "Games", web: "Websites" },
+      form: {
+        name: "Name", email: "Email", message: "Message", send: "Send message",
+        sending: "Sending…", success: "Thanks! Your message was sent.",
+        error: "Something went wrong. Please try again or email me directly.",
+      },
+      theme: { toDark: "Switch to dark mode", toLight: "Switch to light mode" },
+      lang: "Chuyển sang tiếng Việt",
+      menu: { open: "Open menu", close: "Close menu" },
+      top: "Back to top",
+    },
+    vi: {
+      skip: "Chuyển đến nội dung",
+      nav: { projects: "Dự án", skills: "Kỹ năng", experience: "Kinh nghiệm", about: "Giới thiệu", contact: "Liên hệ" },
+      greeting: "Xin chào, tôi là",
+      cta: { work: "Xem dự án", contact: "Liên hệ", cv: "Tải CV" },
+      sections: { projects: "Dự án", skills: "Kỹ năng", experience: "Kinh nghiệm", about: "Giới thiệu", contact: "Cùng hợp tác nhé" },
+      filters: { all: "Tất cả", xr: "AR / VR", game: "Game", web: "Web" },
+      links: { demo: "Chơi thử", android: "Google Play", ios: "App Store", video: "Xem video", live: "Xem website", repo: "Mã nguồn" },
+      empty: "Chưa có dự án trong mục này.",
+      stats: { total: "Dự án", xr: "Ứng dụng AR / VR", game: "Game", web: "Website" },
+      form: {
+        name: "Họ tên", email: "Email", message: "Tin nhắn", send: "Gửi tin nhắn",
+        sending: "Đang gửi…", success: "Cảm ơn bạn! Tin nhắn đã được gửi.",
+        error: "Đã có lỗi xảy ra. Vui lòng thử lại hoặc gửi email trực tiếp cho tôi.",
+      },
+      theme: { toDark: "Chuyển sang giao diện tối", toLight: "Chuyển sang giao diện sáng" },
+      lang: "Switch to English",
+      menu: { open: "Mở menu", close: "Đóng menu" },
+      top: "Lên đầu trang",
+    },
+  },
 };

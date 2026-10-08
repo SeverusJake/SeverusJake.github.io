@@ -21,16 +21,16 @@ window.CONTENT = {
     photo: "assets/img/profile.jpg",
     about: [
       {
-        en: "I've been building with C# and Unity since 2022 — 3D games and VR/XR applications for client projects, from Meta Quest training sims to HoloLens 2 tools and AR apps on the App Store and Google Play.",
-        vi: "Tôi phát triển với C# và Unity từ năm 2022 — game 3D và ứng dụng VR/XR cho khách hàng, từ mô phỏng đào tạo trên Meta Quest, công cụ trên HoloLens 2 đến ứng dụng AR trên App Store và Google Play.",
+        en: "I'm a developer with experience across several technical fields: 3 years building VR, AR, and MR applications in Unity and C#, full-stack web development with Astro and Next.js, and 3 years in IT support and helpdesk — plus hands-on computer vision work with YOLO.",
+        vi: "Tôi là lập trình viên có kinh nghiệm ở nhiều lĩnh vực kỹ thuật: 3 năm phát triển ứng dụng VR, AR, MR bằng Unity và C#, phát triển web full-stack với Astro và Next.js, 3 năm hỗ trợ IT và helpdesk — cùng kinh nghiệm thực tế về thị giác máy tính với YOLO.",
       },
       {
-        en: "I'm comfortable across the whole pipeline: handling 2D and 3D assets in Blender and Photoshop, designing clear, effective UX/UI, and picking up whatever language or framework a project needs — including the web, where I build sites and browser tools.",
-        vi: "Tôi làm việc tốt trong toàn bộ quy trình: xử lý asset 2D, 3D bằng Blender và Photoshop, thiết kế UX/UI rõ ràng, hiệu quả, và nhanh chóng làm quen với bất kỳ ngôn ngữ hay framework nào dự án cần — kể cả web, nơi tôi xây dựng website và công cụ trình duyệt.",
+        en: "At OneTech Asia I built XR apps for client projects — from Meta Quest training sims to HoloLens 2 tools and AR apps on the App Store and Google Play — working with 3D environments, LiDAR data visualization, and 2D/3D assets in Blender and Photoshop.",
+        vi: "Tại OneTech Asia, tôi phát triển ứng dụng XR cho khách hàng — từ mô phỏng đào tạo trên Meta Quest, công cụ trên HoloLens 2 đến ứng dụng AR trên App Store và Google Play — làm việc với môi trường 3D, trực quan hóa dữ liệu LiDAR và asset 2D/3D bằng Blender và Photoshop.",
       },
       {
-        en: "Games are my passion, so I'm always trying to make something new and interesting. My IT support background keeps me calm and methodical when something breaks.",
-        vi: "Game là niềm đam mê của tôi nên tôi luôn cố gắng tạo ra điều gì đó mới và thú vị. Kinh nghiệm hỗ trợ IT giúp tôi bình tĩnh và có phương pháp khi gặp sự cố.",
+        en: "I'm a fast, self-directed learner with a logical, problem-solving approach. Games are my passion, so I'm always trying to make something new and interesting — and years of IT support keep me calm and methodical when something breaks.",
+        vi: "Tôi tự học nhanh, chủ động, tư duy logic và giỏi giải quyết vấn đề. Game là niềm đam mê nên tôi luôn cố gắng tạo ra điều gì đó mới và thú vị — và nhiều năm hỗ trợ IT giúp tôi bình tĩnh, có phương pháp khi gặp sự cố.",
       },
     ],
     motto: {
@@ -40,9 +40,21 @@ window.CONTENT = {
     // Shown beside the bio. label/value accept { en, vi }.
     facts: [
       { label: { en: "Based in", vi: "Nơi ở" }, value: { en: "Ho Chi Minh City, Vietnam", vi: "TP. Hồ Chí Minh, Việt Nam" } },
-      { label: { en: "Unity developer", vi: "Lập trình Unity" }, value: { en: "Since 05/2022", vi: "Từ 05/2022" } },
-      { label: { en: "Education", vi: "Học vấn" }, value: { en: "Software Engineering · Accounting", vi: "Kỹ thuật phần mềm · Kế toán" } },
-      { label: { en: "Languages", vi: "Ngôn ngữ" }, value: { en: "Vietnamese, English (fluent)", vi: "Tiếng Việt, tiếng Anh (thành thạo)" } },
+      {
+        label: { en: "Experience", vi: "Kinh nghiệm" },
+        value: { en: "Unity 3 yrs · IT support 3 yrs · Web 1 yr", vi: "Unity 3 năm · Hỗ trợ IT 3 năm · Web 1 năm" },
+      },
+      {
+        label: { en: "Education", vi: "Học vấn" },
+        value: {
+          en: "Software Engineering Diploma (ADSE), FPT Aptech · Bachelor of Accounting, University of Economics HCMC",
+          vi: "Bằng Kỹ sư phần mềm (ADSE), FPT Aptech · Cử nhân Kế toán, Đại học Kinh tế TP.HCM",
+        },
+      },
+      {
+        label: { en: "Languages", vi: "Ngôn ngữ" },
+        value: { en: "Vietnamese, English (TOEIC 820/990)", vi: "Tiếng Việt, tiếng Anh (TOEIC 820/990)" },
+      },
     ],
     contactText: {
       en: "Open to developer roles and freelance projects — I'd love to hear from you.",
@@ -216,76 +228,115 @@ window.CONTENT = {
     },
   ],
 
-  // icon: "game" | "cube" | "web" | "server"
+  // icon: "game" | "cube" | "ai" | "web" | "server"
   skills: [
     {
       group: "Game & XR Dev",
       icon: "game",
       items: [
         "Unity", "C#", "OOP", "Gameplay systems", "Enemy AI", "Physics", "Shader Graph",
-        "AR", "Meta Quest (Meta XR SDK)", "HTC Vive", "HoloLens 2 (MRTK)", "Lightship", "Zappar", "WebGL", "Firebase",
+        "VR", "AR", "MR", "Meta Quest (Meta XR SDK)", "HTC Vive", "HoloLens 2 (MRTK)", "Lightship", "Zappar",
+        "LiDAR visualization", "WebGL", "Firebase",
       ],
     },
     {
       group: { en: "3D & Design", vi: "3D & Thiết kế" },
       icon: "cube",
-      items: ["Blender", "Photoshop", "3D modeling", "Texturing", "Animation", "UX/UI design"],
+      items: ["Blender", "Photoshop", "3D modeling", "Texturing", "Animation", "3D visualization", "UX/UI design"],
+    },
+    {
+      group: { en: "AI & Computer Vision", vi: "AI & Thị giác máy tính" },
+      icon: "ai",
+      items: [
+        "Python", "YOLOv4", "YOLOv7", "YOLOv11n", "Object detection",
+        "Image annotation", "Dataset preparation", "Model training", "Claude", "Codex", "ChatGPT",
+      ],
     },
     {
       group: "Web",
       icon: "web",
-      items: ["HTML", "CSS", "JavaScript", "TypeScript", "Astro", "React", "Node.js", "Git"],
+      items: ["TypeScript", "JavaScript", "Astro", "Next.js", "HTML", "CSS", "Git", "GitHub"],
     },
     {
-      group: { en: "IT & Systems", vi: "IT & Hệ thống" },
+      group: { en: "IT Support", vi: "Hỗ trợ IT" },
       icon: "server",
-      items: ["Windows", "Active Directory", "Microsoft 365", "Networking", "PowerShell", "Ticketing", "Hardware"],
+      items: [
+        "Troubleshooting", "Windows", "Microsoft 365", "Word", "Excel", "SAP support",
+        "Hardware", "Printers", "Basic networking", "Ticketing",
+      ],
     },
   ],
 
   // Newest first.
   experience: [
     {
-      role: "Unity Developer",
-      org: "OneTech Asia",
-      period: { en: "05/2022 — Present", vi: "05/2022 — Nay" },
-      points: [
-        {
-          en: "Developed 3D games and VR/XR applications for client projects with support from the tech lead.",
-          vi: "Phát triển game 3D và ứng dụng VR/XR cho khách hàng với sự hỗ trợ của tech lead.",
-        },
-        {
-          en: "Created and modified 3D models, textures, and assets in Blender and Photoshop.",
-          vi: "Tạo và chỉnh sửa mô hình 3D, texture và tài nguyên bằng Blender và Photoshop.",
-        },
-        {
-          en: "Worked with teammates to implement project features end to end.",
-          vi: "Phối hợp với các thành viên trong nhóm để triển khai chức năng dự án.",
-        },
-        {
-          en: "Partnered with QA to find, track, and fix bugs, keeping releases high quality.",
-          vi: "Hợp tác với QA để phát hiện, quản lý và sửa lỗi, đảm bảo chất lượng sản phẩm khi phát hành.",
-        },
-      ],
-    },
-    // PLACEHOLDER roles below — replace with your real dates and details.
-    {
       role: { en: "Web Developer (Freelance)", vi: "Lập trình viên Web (Freelance)" },
       org: { en: "Self-employed", vi: "Tự do" },
-      period: "2022 — 2024",
+      period: { en: "08/2025 — Present", vi: "08/2025 — Nay" },
       points: [
-        { en: "Designed and shipped responsive sites for small businesses.", vi: "Thiết kế và triển khai website responsive cho doanh nghiệp nhỏ." },
-        { en: "Handled hosting, domains, and ongoing maintenance.", vi: "Quản lý hosting, tên miền và bảo trì định kỳ." },
+        {
+          en: "Develop full-stack websites with Astro, Next.js, and TypeScript.",
+          vi: "Phát triển website full-stack với Astro, Next.js và TypeScript.",
+        },
+        {
+          en: "Use AI-assisted development tools such as Claude and Codex.",
+          vi: "Sử dụng các công cụ lập trình hỗ trợ bởi AI như Claude và Codex.",
+        },
       ],
     },
     {
-      role: { en: "IT Support / Helpdesk Technician", vi: "Kỹ thuật viên Hỗ trợ IT / Helpdesk" },
-      org: "Company Name",
-      period: "2020 — 2022",
+      role: "IT Helpdesk",
+      org: "MP Logistics",
+      period: { en: "10/2025 — Present", vi: "10/2025 — Nay" },
       points: [
-        { en: "Resolved hardware, software, and network issues for 100+ users.", vi: "Xử lý sự cố phần cứng, phần mềm và mạng cho hơn 100 người dùng." },
-        { en: "Automated account setup and routine fixes with PowerShell scripts.", vi: "Tự động hóa việc tạo tài khoản và các tác vụ sửa lỗi thường gặp bằng PowerShell." },
-        { en: "Wrote knowledge-base articles that cut repeat tickets.", vi: "Viết tài liệu hướng dẫn giúp giảm số yêu cầu hỗ trợ lặp lại." },
+        { en: "Provide IT support for about 200 users.", vi: "Hỗ trợ IT cho khoảng 200 người dùng." },
+        { en: "Handle around 40 support tickets per day.", vi: "Xử lý khoảng 40 yêu cầu hỗ trợ mỗi ngày." },
+        {
+          en: "Troubleshoot Windows, Office, printer, hardware, and basic network issues.",
+          vi: "Khắc phục sự cố Windows, Office, máy in, phần cứng và mạng cơ bản.",
+        },
+      ],
+    },
+    {
+      role: "Unity Developer",
+      org: "OneTech Asia",
+      period: "05/2022 — 04/2025",
+      points: [
+        {
+          en: "Developed VR, AR, and MR applications in Unity and C# for client projects.",
+          vi: "Phát triển ứng dụng VR, AR và MR bằng Unity và C# cho các dự án khách hàng.",
+        },
+        {
+          en: "Built 3D environments and interactive features, including LiDAR data visualization.",
+          vi: "Xây dựng môi trường 3D và tính năng tương tác, bao gồm trực quan hóa dữ liệu LiDAR.",
+        },
+        {
+          en: "Used YOLOv4 and YOLOv7 for product detection, and annotated image data to improve model training and recognition accuracy.",
+          vi: "Sử dụng YOLOv4 và YOLOv7 để nhận diện sản phẩm, đồng thời gán nhãn dữ liệu ảnh để nâng cao chất lượng huấn luyện và độ chính xác nhận diện.",
+        },
+        {
+          en: "Created and edited 3D models and textures in Blender and Photoshop, and partnered with QA to find and fix bugs before release.",
+          vi: "Tạo và chỉnh sửa mô hình 3D, texture bằng Blender và Photoshop, phối hợp với QA để phát hiện và sửa lỗi trước khi phát hành.",
+        },
+      ],
+    },
+    {
+      role: "IT SAP Support",
+      org: "Khai Anh JSC",
+      period: "01/2019 — 05/2021",
+      points: [
+        {
+          en: "Provided first-level SAP and application support for 50 users.",
+          vi: "Hỗ trợ SAP và ứng dụng cấp 1 cho 50 người dùng.",
+        },
+        {
+          en: "Helped cut support tickets by 50% within 3 months.",
+          vi: "Góp phần giảm 50% số yêu cầu hỗ trợ trong vòng 3 tháng.",
+        },
+        {
+          en: "Resolved login, access, and common user issues, escalating complex cases.",
+          vi: "Xử lý các vấn đề đăng nhập, phân quyền và lỗi thường gặp, chuyển tiếp các trường hợp phức tạp.",
+        },
       ],
     },
   ],

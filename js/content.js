@@ -18,26 +18,37 @@ window.CONTENT = {
       en: "I build games and websites that feel good to use — and, thanks to years in IT support, I know how to keep them running when real users show up.",
       vi: "Tôi xây dựng game và website mang lại trải nghiệm tốt — và nhờ nhiều năm làm hỗ trợ IT, tôi biết cách giữ chúng vận hành ổn định khi người dùng thật sử dụng.",
     },
+    photo: "assets/img/profile.jpg",
     about: [
-      // PLACEHOLDER — rewrite in your own words.
       {
-        en: "I'm a developer working across Unity and the web. On the Unity side I build AR, VR, and mixed-reality apps and games in C#. On the web side I make fast, accessible sites and browser tools.",
-        vi: "Tôi là lập trình viên làm việc với Unity và web. Với Unity, tôi phát triển ứng dụng AR, VR, thực tế hỗn hợp và game bằng C#. Với web, tôi làm các website và công cụ trình duyệt nhanh, dễ tiếp cận.",
+        en: "I've been building with C# and Unity since 2022 — 3D games and VR/XR applications for client projects, from Meta Quest training sims to HoloLens 2 tools and AR apps on the App Store and Google Play.",
+        vi: "Tôi phát triển với C# và Unity từ năm 2022 — game 3D và ứng dụng VR/XR cho khách hàng, từ mô phỏng đào tạo trên Meta Quest, công cụ trên HoloLens 2 đến ứng dụng AR trên App Store và Google Play.",
       },
       {
-        en: "Before writing code full-time I worked in IT support and on the helpdesk. That taught me to debug calmly under pressure, explain technical problems in plain language, and care about the person on the other side of the screen.",
-        vi: "Trước khi lập trình toàn thời gian, tôi làm hỗ trợ IT và helpdesk. Công việc đó dạy tôi bình tĩnh xử lý lỗi dưới áp lực, giải thích vấn đề kỹ thuật bằng ngôn ngữ dễ hiểu và quan tâm đến người dùng phía bên kia màn hình.",
+        en: "I'm comfortable across the whole pipeline: handling 2D and 3D assets in Blender and Photoshop, designing clear, effective UX/UI, and picking up whatever language or framework a project needs — including the web, where I build sites and browser tools.",
+        vi: "Tôi làm việc tốt trong toàn bộ quy trình: xử lý asset 2D, 3D bằng Blender và Photoshop, thiết kế UX/UI rõ ràng, hiệu quả, và nhanh chóng làm quen với bất kỳ ngôn ngữ hay framework nào dự án cần — kể cả web, nơi tôi xây dựng website và công cụ trình duyệt.",
       },
       {
-        en: "I'm looking for a developer role where I can ship things people actually use.",
-        vi: "Tôi đang tìm vị trí lập trình viên nơi tôi có thể tạo ra những sản phẩm được mọi người thực sự sử dụng.",
+        en: "Games are my passion, so I'm always trying to make something new and interesting. My IT support background keeps me calm and methodical when something breaks.",
+        vi: "Game là niềm đam mê của tôi nên tôi luôn cố gắng tạo ra điều gì đó mới và thú vị. Kinh nghiệm hỗ trợ IT giúp tôi bình tĩnh và có phương pháp khi gặp sự cố.",
       },
+    ],
+    motto: {
+      en: "Life is a journey, and the journey is the destination.",
+      vi: "Cuộc sống là một hành trình, và hành trình là điểm đến.",
+    },
+    // Shown beside the bio. label/value accept { en, vi }.
+    facts: [
+      { label: { en: "Based in", vi: "Nơi ở" }, value: { en: "Ho Chi Minh City, Vietnam", vi: "TP. Hồ Chí Minh, Việt Nam" } },
+      { label: { en: "Unity developer", vi: "Lập trình Unity" }, value: { en: "Since 05/2022", vi: "Từ 05/2022" } },
+      { label: { en: "Education", vi: "Học vấn" }, value: { en: "Software Engineering · Accounting", vi: "Kỹ thuật phần mềm · Kế toán" } },
+      { label: { en: "Languages", vi: "Ngôn ngữ" }, value: { en: "Vietnamese, English (fluent)", vi: "Tiếng Việt, tiếng Anh (thành thạo)" } },
     ],
     contactText: {
       en: "Open to developer roles and freelance projects — I'd love to hear from you.",
       vi: "Sẵn sàng cho vị trí lập trình viên và dự án freelance — rất mong nhận được tin từ bạn.",
     },
-    email: "you@example.com", // PLACEHOLDER — your public contact email
+    email: "jake.nguyentt@gmail.com",
     resumeUrl: "assets/resume.pdf", // PLACEHOLDER — replace the PDF file
 
     // Contact form: create a free form at https://formspree.io, then paste its
@@ -47,7 +58,7 @@ window.CONTENT = {
 
   // icon: "github" | "linkedin" | "email" | "itch"
   links: [
-    { label: "Email", url: "mailto:you@example.com", icon: "email" }, // PLACEHOLDER
+    { label: "Email", url: "mailto:jake.nguyentt@gmail.com", icon: "email" },
     { label: "GitHub", url: "https://github.com/SeverusJake", icon: "github" },
     { label: "LinkedIn", url: "https://www.linkedin.com/", icon: "linkedin" }, // PLACEHOLDER
   ],
@@ -62,6 +73,7 @@ window.CONTENT = {
       title: "Akooland",
       category: "xr",
       platform: "AR · iOS & Android",
+      image: "assets/img/akooland.jpg",
       blurb: {
         en: "AR coloring card game for kids: color a printed card, scan it, and watch the drawing come to life in 3D. Published on Google Play and the App Store.",
         vi: "Game thẻ tô màu AR cho trẻ em: tô màu thẻ in, quét thẻ và xem bức vẽ sống động trong không gian 3D. Đã phát hành trên Google Play và App Store.",
@@ -76,6 +88,7 @@ window.CONTENT = {
       title: "PCCC Fire Safety",
       category: "xr",
       platform: "VR · Meta Quest 2 & 3",
+      image: "assets/img/pccc.jpg",
       blurb: {
         en: "VR fire-safety simulation that trains employees and students to handle fire emergencies hands-on.",
         vi: "Mô phỏng phòng cháy chữa cháy bằng VR, giúp nhân viên và học sinh thực hành xử lý tình huống cháy.",
@@ -87,6 +100,7 @@ window.CONTENT = {
       title: "SkullViewer",
       category: "xr",
       platform: "MR · HoloLens 2",
+      image: "assets/img/skullviewer.jpg",
       blurb: {
         en: "Mixed-reality anatomy viewer for exploring human body and skull structures, with hand menus and an in-scene measuring ruler.",
         vi: "Ứng dụng thực tế hỗn hợp để khám phá cấu trúc cơ thể người và hộp sọ, có menu trên tay và thước đo trong không gian.",
@@ -98,6 +112,7 @@ window.CONTENT = {
       title: "insightScanX",
       category: "xr",
       platform: "AR · iOS",
+      image: "assets/img/insightscanx.jpg",
       blurb: {
         en: "Scans real-world objects with an iPhone and turns them into 3D models for use on a computer.",
         vi: "Quét vật thể thật bằng iPhone và chuyển thành mô hình 3D để sử dụng trên máy tính.",
@@ -109,6 +124,7 @@ window.CONTENT = {
       title: "VIBNewYear",
       category: "xr",
       platform: "WebAR · WebGL",
+      image: "assets/img/vibnewyear.jpg",
       blurb: {
         en: "Interactive 3D greeting cards for events, running right in the browser with WebGL.",
         vi: "Thiệp chúc mừng 3D tương tác cho sự kiện, chạy trực tiếp trên trình duyệt bằng WebGL.",
@@ -120,6 +136,7 @@ window.CONTENT = {
       title: "DefeatDengue",
       category: "game",
       platform: "Game · Web",
+      image: "assets/img/defeatdengue.jpg",
       blurb: {
         en: "Tower defense game that teaches players how to protect themselves against dengue mosquitoes.",
         vi: "Game thủ thành giúp người chơi học cách phòng chống muỗi sốt xuất huyết.",
@@ -131,6 +148,7 @@ window.CONTENT = {
       title: "Lost Cat",
       category: "game",
       platform: "Game · 2D platformer",
+      image: "assets/img/lostcat.jpg",
       blurb: {
         en: "Mario-style platformer with physics-based character movement, enemy AI, a follow camera, and hand-built levels.",
         vi: "Game platformer phong cách Mario với di chuyển nhân vật theo vật lý, AI kẻ địch, camera bám theo và các màn chơi tự thiết kế.",
@@ -139,9 +157,22 @@ window.CONTENT = {
       links: { demo: "https://jakenguyentt.github.io/LostCat_Demo/" },
     },
     {
+      title: "Hexinfinity",
+      category: "game",
+      platform: "Game · Puzzle",
+      image: "assets/img/hexinfinity.jpg",
+      blurb: {
+        en: "Hex-tile puzzle game: place and merge tiles of the same color to chain combos and score points.",
+        vi: "Game giải đố ô lục giác: đặt và ghép các ô cùng màu để tạo chuỗi và ghi điểm.",
+      },
+      tags: ["Puzzle mechanics", "Tile merging", "Scoring system", "WebGL"],
+      links: { demo: "https://jakenguyentt.github.io/Hexinfinity_Demo/" },
+    },
+    {
       title: "Zombie Survival",
       category: "game",
       platform: "Game · Top-down shooter",
+      image: "assets/img/zombiesurvival.jpg",
       blurb: {
         en: "Top-down shooter with roguelike mechanics and zombie enemy AI.",
         vi: "Game bắn súng góc nhìn từ trên xuống với cơ chế roguelike và AI zombie.",
@@ -185,16 +216,20 @@ window.CONTENT = {
     },
   ],
 
-  // icon: "game" | "web" | "server"
+  // icon: "game" | "cube" | "web" | "server"
   skills: [
-    // PLACEHOLDER — keep what's true, add what's missing.
     {
       group: "Game & XR Dev",
       icon: "game",
       items: [
-        "Unity", "C#", "Shader Graph", "Physics", "Enemy AI",
-        "AR", "Meta Quest (Meta XR SDK)", "HoloLens 2 (MRTK)", "Lightship", "Zappar", "WebGL", "Firebase",
+        "Unity", "C#", "OOP", "Gameplay systems", "Enemy AI", "Physics", "Shader Graph",
+        "AR", "Meta Quest (Meta XR SDK)", "HTC Vive", "HoloLens 2 (MRTK)", "Lightship", "Zappar", "WebGL", "Firebase",
       ],
+    },
+    {
+      group: { en: "3D & Design", vi: "3D & Thiết kế" },
+      icon: "cube",
+      items: ["Blender", "Photoshop", "3D modeling", "Texturing", "Animation", "UX/UI design"],
     },
     {
       group: "Web",
@@ -210,16 +245,30 @@ window.CONTENT = {
 
   // Newest first.
   experience: [
-    // PLACEHOLDER roles — replace with your real history.
     {
       role: "Unity Developer",
-      org: "Studio Name",
-      period: { en: "2024 — Present", vi: "2024 — Nay" },
+      org: "OneTech Asia",
+      period: { en: "05/2022 — Present", vi: "05/2022 — Nay" },
       points: [
-        { en: "Built gameplay systems and editor tools in C#.", vi: "Xây dựng hệ thống gameplay và công cụ editor bằng C#." },
-        { en: "Profiled and optimized builds for mobile targets.", vi: "Phân tích và tối ưu hiệu năng bản build cho thiết bị di động." },
+        {
+          en: "Developed 3D games and VR/XR applications for client projects with support from the tech lead.",
+          vi: "Phát triển game 3D và ứng dụng VR/XR cho khách hàng với sự hỗ trợ của tech lead.",
+        },
+        {
+          en: "Created and modified 3D models, textures, and assets in Blender and Photoshop.",
+          vi: "Tạo và chỉnh sửa mô hình 3D, texture và tài nguyên bằng Blender và Photoshop.",
+        },
+        {
+          en: "Worked with teammates to implement project features end to end.",
+          vi: "Phối hợp với các thành viên trong nhóm để triển khai chức năng dự án.",
+        },
+        {
+          en: "Partnered with QA to find, track, and fix bugs, keeping releases high quality.",
+          vi: "Hợp tác với QA để phát hiện, quản lý và sửa lỗi, đảm bảo chất lượng sản phẩm khi phát hành.",
+        },
       ],
     },
+    // PLACEHOLDER roles below — replace with your real dates and details.
     {
       role: { en: "Web Developer (Freelance)", vi: "Lập trình viên Web (Freelance)" },
       org: { en: "Self-employed", vi: "Tự do" },
